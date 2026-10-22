@@ -1,0 +1,122 @@
+/* ============================================================
+   Charts — SVG visualisation styling
+   ============================================================ */
+.chart-box {
+  background: var(--panel); border: 1px solid var(--border-soft);
+  border-radius: 14px; padding: 20px; margin-bottom: 16px;
+}
+.chart-box__title { font-family: var(--font-display); font-weight: 560; font-size: 15.5px; letter-spacing: -.01em; margin: 0 0 3px; color: var(--text); }
+.chart-box__sub { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.chart-box__src {
+  font-size: 10.5px; color: var(--faint); margin-top: 10px;
+  padding-top: 10px; border-top: 1px dashed var(--border-soft);
+  font-family: var(--font-data);
+}
+
+svg.chart text { font-family: var(--font-ui); fill: var(--text-2); }
+svg.chart .label-faint { fill: var(--faint); font-size: 10.5px; font-family: var(--font-data); }
+svg.chart .label-muted { fill: var(--muted); font-size: 11px; }
+svg.chart .label-main { fill: var(--text); font-size: 12px; font-weight: 600; }
+
+/* Value chain flow (home) + supply-chain diagram */
+.chain-flow { width: 100%; }
+.chain-flow .node-box { fill: var(--panel); stroke: var(--border); rx: 8; }
+.chain-flow .node-box.hl { stroke: var(--accent); stroke-width: 1.6; }
+.chain-flow .node-text { fill: var(--text); font-size: 12.5px; font-weight: 600; text-anchor: middle; }
+.chain-flow .node-sub { fill: var(--faint); font-size: 9.5px; text-anchor: middle; letter-spacing: .4px; text-transform: uppercase; font-family: var(--font-data); }
+.chain-flow .edge-arrow { stroke: var(--muted); stroke-width: 1.4; marker-end: url(#arrowhead); }
+
+/* Ecosystem graph */
+.ecosystem-graph { width: 100%; }
+.ecosystem-graph .node rect { rx: 6; }
+.ecosystem-graph .node text { font-size: 11.5px; font-weight: 600; fill: var(--text); }
+.ecosystem-graph .node .node-sub { font-size: 8.5px; fill: var(--faint); text-transform: uppercase; letter-spacing: .3px; font-family: var(--font-data); }
+.ecosystem-graph .edge { stroke-width: 1.3; }
+.ecosystem-graph .edge:hover { stroke-width: 2.2; }
+.ecosystem-graph .edge-label { font-size: 8px; fill: var(--faint); font-family: var(--font-data); }
+
+/* Waterfall */
+.wf-bar { fill: var(--data); opacity: .9; }
+.wf-bar--neg { fill: var(--neg); }
+.wf-bar--dim { fill: var(--panel-3); stroke: var(--border); }
+.wf-label { font-size: 10.5px; fill: var(--muted); font-family: var(--font-data); }
+
+/* Radar */
+.radar-grid polygon { fill: none; stroke: var(--border); }
+.radar-grid line { stroke: var(--border); }
+.radar-axis { font-size: 9.5px; fill: var(--muted); font-family: var(--font-data); }
+.radar-area { fill-opacity: .12; stroke-width: 1.8; }
+.radar-dot { r: 2.5; }
+
+/* Ecosystem graph v2 — toolbar & canvas */
+.eco-toolbar {
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+  margin-bottom: 12px; padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border-soft); /* controls visually separate from the canvas */
+}
+.eco-toolbar .eco-search { width: 240px; }
+.eco-toolbar .btn { min-height: 30px; padding: 5px 12px; }
+.eco-toggle {
+  font-size: 11.5px; color: var(--muted);
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  font-family: var(--font-data); white-space: nowrap;
+}
+.eco-toggle input { accent-color: var(--accent); margin: 0; }
+.eco-hint { font-size: 10.5px; color: var(--faint); margin-left: auto; font-family: var(--font-data); white-space: nowrap; }
+.eco-canvas {
+  overflow: hidden; border: 1px solid var(--border-soft);
+  border-radius: 10px; background: var(--panel-3); cursor: grab;
+}
+@media (max-width: 900px) {
+  .eco-toolbar .eco-search { width: 100%; }
+  .eco-hint { flex-basis: 100%; margin-left: 0; }
+}
+.eco-canvas:active { cursor: grabbing; }
+.ecosystem-graph .edge { pointer-events: none; }
+.ecosystem-graph .node { pointer-events: all; }
+
+/* Ecosystem split layout — graph left, company panel right */
+.eco-split { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+.eco-split .chart-box { margin-bottom: 0; }
+.eco-detail {
+  position: sticky; top: calc(var(--topbar-h) + 16px);
+  max-height: calc(100vh - var(--topbar-h) - 32px);
+  overflow-y: auto;
+  background: var(--panel); border: 1px solid var(--border-soft);
+  border-radius: 14px; padding: 16px;
+}
+@media (max-width: 1100px) {
+  .eco-split { grid-template-columns: 1fr; }
+  .eco-detail { position: static; max-height: none; }
+}
+.eco-panel__title { font-family: var(--font-display); font-weight: 560; font-size: 15.5px; letter-spacing: -.01em; color: var(--text); margin: 0 0 4px; }
+.eco-panel__hint { font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+.eco-list { display: flex; flex-direction: column; gap: 2px; }
+.eco-list__row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  width: 100%; text-align: left;
+  background: none; border: none; border-radius: 8px;
+  padding: 6px 10px; font-size: 12.5px; color: var(--text-2);
+  cursor: pointer; font-family: var(--font-ui);
+  transition: background-color .12s cubic-bezier(.2,0,0,1), color .12s cubic-bezier(.2,0,0,1);
+}
+.eco-list__row:hover { background: var(--panel-3); color: var(--text); }
+.eco-list__row em { font-style: normal; font-family: var(--font-data); font-size: 10px; color: var(--faint); }
+.eco-clear {
+  margin-top: 10px; width: 100%;
+  background: var(--panel-3); border: 1px solid var(--border-soft);
+  border-radius: 8px; padding: 6px 10px; font-size: 11.5px; color: var(--muted);
+  cursor: pointer; font-family: var(--font-data);
+}
+.eco-clear:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Tooltip */
+.viz-tip {
+  position: absolute; pointer-events: none; z-index: 50;
+  background: var(--panel); border: 1px solid var(--accent);
+  border-radius: 8px; padding: 9px 12px;
+  font-size: 11.5px; color: var(--text); max-width: 260px;
+  box-shadow: var(--shadow); white-space: normal;
+}
+.viz-tip b { display: block; margin-bottom: 3px; color: var(--accent); }
+.viz-tip .tt-sub { color: var(--muted); font-size: 10.5px; font-family: var(--font-data); }
