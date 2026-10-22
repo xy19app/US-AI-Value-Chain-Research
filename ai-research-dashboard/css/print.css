@@ -1,0 +1,63 @@
+/* ============================================================
+   Print / PDF layout — institutional, light, content-only
+   Triggered via window.print() (Print button in topbar)
+   ============================================================ */
+@media print {
+  :root {
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --panel-2: #f4f6f9;
+    --panel-3: #eef1f5;
+    --border: #c9d1dc;
+    --border-soft: #dde3ea;
+    --text: #10151d;
+    --text-2: #2b3442;
+    --muted: #4b5565;
+    --faint: #6b7484;
+    --accent: #8a6d1f;
+  }
+
+  html, body { background: #fff !important; }
+
+  .sidebar, .topbar__menu, .topbar__print, .freshness-chip, .search,
+  .sidebar-backdrop, .viz-tip, .content__foot { display: none !important; }
+
+  .sidebar { display: none; }
+  .main { width: 100%; }
+  .content { max-width: none; padding: 0 8mm; }
+
+  /* Expand all collapsible panels */
+  .section-panel.closed .section-panel__body { display: block !important; }
+  .section-panel__head .chev { display: none; }
+  .accordion-item__body { display: block !important; }
+  .accordion-item__head .chev { display: none; }
+
+  .section-panel, .card, .chart-box, .callout, .accordion-item, .hero-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border-color: #c9d1dc !important;
+  }
+  .section { break-inside: auto; }
+
+  /* Keep tables intact where possible */
+  .rt th { background: #eef1f5 !important; color: #10151d !important; }
+  .rt td, .rt th { border-color: #c9d1dc !important; }
+  .table-wrap { overflow: visible !important; }
+
+  /* Company cards print as plain blocks */
+  .company-card { border: 1px solid #c9d1dc; break-inside: avoid; }
+
+  a { color: #10151d !important; text-decoration: none; }
+  .badge { border-color: #c9d1dc !important; color: #10151d !important; background: #eef1f5 !important; }
+
+  /* SVG charts render with ink-friendly strokes */
+  svg.chart { max-width: 100%; }
+  svg.chart text { fill: #10151d !important; }
+  svg.chart .node rect { fill: #f4f6f9 !important; stroke: #6b7484 !important; }
+  svg.chart .edge { stroke: #6b7484 !important; }
+
+  .page-title { font-size: 20pt; }
+  .page-sub { font-size: 10pt; }
+  .section-title { color: #10151d !important; }
+  h1, h2, h3, h4 { page-break-after: avoid; }
+}
